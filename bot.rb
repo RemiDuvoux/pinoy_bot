@@ -59,12 +59,12 @@ Bot.on :message do |message|
       else
         say 'I could not get your name, sorry :('
       end
-    end
+    endpoints
 
     # Use with block if you want to provide response behaviour
     # directly without looking for an existing command inside Commands.
-    bind 'knock' do
-      say "Who's there?"
+    bind 'Who is Duterte?' do
+      say "The President of the Philippines!"
     end
 
     bind 'hi', 'hello', 'yo', 'hey' do
