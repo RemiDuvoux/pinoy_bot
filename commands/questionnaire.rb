@@ -34,7 +34,7 @@ module Questionnaire
     @user.answers[:gender] = @message.text
     reply = UI::QuickReplies.build(["I'd rather not say", 'NO_AGE'])
     say 'Finally, how old are you?', quick_replies: reply
-    next_command :handle_age_and_stop
+    next_command :handle_age_and_ask_question_1
   end
 
   def handle_age_and_ask_question_1
