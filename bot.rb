@@ -32,7 +32,7 @@ LOCATION_PROMPT = UI::QuickReplies.location
 # outside both Bot.on method calls.
 questionnaire_replies = UI::QuickReplies.build(%w[Yes START_QUESTIONNAIRE],
                                                %w[No STOP_QUESTIONNAIRE])
-questionnaire_welcome = 'Welcome to the sample questionnaire! Are you ready?'
+questionnaire_welcome = 'Welcome to the Proudly Filipino questionnaire! Are you ready?'
 
 ####################### ROUTE MESSAGES HERE ################################
 
@@ -93,6 +93,7 @@ Bot.on :message do |message|
       say 'Here are some suggestions for you:', quick_replies: HINTS
     end
   end
+end
 end
 
 ######################## ROUTE POSTBACKS HERE ###############################
