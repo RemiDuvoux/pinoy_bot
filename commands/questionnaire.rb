@@ -5,16 +5,22 @@ module Questionnaire
   # commands are mixed into Dispatch classes as private methods.
   module_function
 
+  $points_count = 0
+  puts $points_count
+
   def start_questionnaire
     if @message.quick_reply == 'START_QUESTIONNAIRE' || @message.text =~ /yes/i
       say "Great! What's your name?"
       say "(type 'Stop' at any point to exit)"
       next_command :handle_name_and_ask_gender
+      $points_count += 1
     else
       say "No problem! Let's do it later"
       stop_thread
     end
   end
+
+  puts $points_count
 
   def handle_name_and_ask_gender
     # Fallback functionality if stop word used or user input is not text
@@ -22,8 +28,11 @@ module Questionnaire
     @user.answers[:name] = @message.text
     replies = UI::QuickReplies.build(%w[Male MALE], %w[Female FEMALE])
     say "What's your gender?", quick_replies: replies
+    $points_count += 1
     next_command :handle_gender_and_ask_age
   end
+
+  puts $points_count
 
   def handle_gender_and_ask_age
     fall_back && return
