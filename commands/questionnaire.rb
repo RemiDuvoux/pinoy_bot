@@ -52,7 +52,7 @@ module Questionnaire
 
   def question_1
     fall_back && return
-    @user_answers[:question_1] = @message.text
+    @user.answers[:question_1] = @message.text
     if @user_answers[:question_1] == "Japan"
       $points_count += 1
       say "Good job!"
