@@ -9,12 +9,11 @@ module Questionnaire
   puts $points_count
 
   def start_questionnaire
+    # get_user_info
     if @message.quick_reply == 'START_QUESTIONNAIRE' || @message.text =~ /yes/i
       say "Great! What's your name?"
       say "(type 'Stop' at any point to exit)"
       next_command :handle_name_and_ask_gender
-      $points_count += 1
-      puts $points_count
     else
       say "No problem! Let's do it later"
       stop_thread
@@ -27,8 +26,6 @@ module Questionnaire
     @user.answers[:name] = @message.text
     replies = UI::QuickReplies.build(%w[Male MALE], %w[Female FEMALE])
     say "What's your gender?", quick_replies: replies
-    $points_count += 1
-    puts $points_count
     next_command :handle_gender_and_ask_age
   end
 
@@ -47,8 +44,21 @@ module Questionnaire
                           else
                             @message.text
                           end
-    stop_questionnaire
+    next_command :question_1
   end
+
+  def question_1
+    fall_back && return
+    say "Let's get started with the quizz!"
+    reply = UI::QuickReplies.build(["Germany", 'USA', 'Japan'])
+    say "Which country occupied the Philippines during World War II?", quick_replies: reply
+    @user_answers[:question_1] = @message.text
+    if @user_answers[:question_1] == "Japan"
+      $points_count += 1
+    end
+    next_command :show_results
+  end
+
 
   def stop_questionnaire
     stop_thread
@@ -63,10 +73,11 @@ module Questionnaire
     age = @user.answers.fetch(:age, 'N/A')
     text = "Name: #{name}, " \
            "gender: #{gender}, " \
-           "age: #{age}" \
+           "age: #{age}, " \
            "points: #{$points_count}"
     say text
     say 'Thanks for your time!'
+    $points_count = 0
   end
 
   # NOTE: A way to enforce sanity checks (repeat for each sequential command)

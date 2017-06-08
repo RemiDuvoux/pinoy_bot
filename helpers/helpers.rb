@@ -32,10 +32,6 @@ module Helpers
     @message.respond_to?(:text) && !@message.text.nil?
   end
 
-  def message_contains_location?
-    @message.attachments && @message.attachments.first['type'] == 'location'
-  end
-
   # Get user info from Graph API. Takes names of required fields as symbols
   # https://developers.facebook.com/docs/graph-api/reference/v2.2/user
   def get_user_info(*fields)
