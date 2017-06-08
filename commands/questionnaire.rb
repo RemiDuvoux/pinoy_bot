@@ -14,13 +14,12 @@ module Questionnaire
       say "(type 'Stop' at any point to exit)"
       next_command :handle_name_and_ask_gender
       $points_count += 1
+      puts $points_count
     else
       say "No problem! Let's do it later"
       stop_thread
     end
   end
-
-  puts $points_count
 
   def handle_name_and_ask_gender
     # Fallback functionality if stop word used or user input is not text
@@ -29,10 +28,9 @@ module Questionnaire
     replies = UI::QuickReplies.build(%w[Male MALE], %w[Female FEMALE])
     say "What's your gender?", quick_replies: replies
     $points_count += 1
+    puts $points_count
     next_command :handle_gender_and_ask_age
   end
-
-  puts $points_count
 
   def handle_gender_and_ask_age
     fall_back && return
@@ -65,7 +63,8 @@ module Questionnaire
     age = @user.answers.fetch(:age, 'N/A')
     text = "Name: #{name}, " \
            "gender: #{gender}, " \
-           "age: #{age}"
+           "age: #{age}" \
+           "points: #{$points_count}"
     say text
     say 'Thanks for your time!'
   end
