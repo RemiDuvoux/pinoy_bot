@@ -45,7 +45,7 @@ module Questionnaire
                             @message.text
                           end
     say "Let's get started with the quizz!"
-    reply = UI::QuickReplies.build(["Germany", 'USA', 'Japan'])
+    reply = UI::QuickReplies.build(['USA', 'Japan'])
     say "Which country occupied the Philippines during World War II?", quick_replies: reply
     next_command :question_1
   end
