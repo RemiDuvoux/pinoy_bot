@@ -45,7 +45,7 @@ module Questionnaire
                             @message.text
                           end
     say "Let's get started with the quizz!"
-    reply = UI::QuickReplies.build(['USA', 'Japan'])
+    reply = UI::QuickReplies.build(%w[Japan JAPAN], %w[Usa USA])
     say "Which country occupied the Philippines during World War II?", quick_replies: reply
     next_command :question_1
   end
@@ -55,6 +55,7 @@ module Questionnaire
     @user_answers[:question_1] = @message.text
     if @user_answers[:question_1] == "Japan"
       $points_count += 1
+      say "Good job!"
     end
     next_command :show_results
   end
