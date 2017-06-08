@@ -37,21 +37,21 @@ module Questionnaire
     next_command :handle_age_and_stop
   end
 
-  def handle_age_and_stop
+  def handle_age_and_ask_question_1
     fall_back && return
     @user.answers[:age] = if @message.quick_reply == 'NO_AGE'
                             'hidden'
                           else
                             @message.text
                           end
+    say "Let's get started with the quizz!"
+    reply = UI::QuickReplies.build(["Germany", 'USA', 'Japan'])
+    say "Which country occupied the Philippines during World War II?", quick_replies: reply
     next_command :question_1
   end
 
   def question_1
     fall_back && return
-    say "Let's get started with the quizz!"
-    reply = UI::QuickReplies.build(["Germany", 'USA', 'Japan'])
-    say "Which country occupied the Philippines during World War II?", quick_replies: reply
     @user_answers[:question_1] = @message.text
     if @user_answers[:question_1] == "Japan"
       $points_count += 1
