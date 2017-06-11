@@ -45,21 +45,33 @@ module Questionnaire
                             @message.text
                           end
     say "Let's get started with the quizz!"
-    reply = UI::QuickReplies.build(%w[Japan JAPAN], %w[Usa USA])
-    say "Which country occupied the Philippines during World War II?", quick_replies: reply
-    next_command :question_1
+    reply = UI::QuickReplies.build(%w[Buko BUKO], %w[Banana BANANA])
+    say "Which one of this fruits is amazing for the immune system?", quick_replies: reply
+    next_command :handle_question_1_and_ask_question_2
   end
 
-  def question_1
+  def handle_question_1_and_ask_question_2
     fall_back && return
     @user.answers[:question_1] = @message.text
-    if @user.answers[:question_1] == "Japan"
+    if @user.answers[:question_1] == "Banana"
       $points_count += 1
       say "Good job!"
     end
-    puts "Here are the aswers as of now" #log
-    puts @user.answers #log
-    next_command :show_results
+    say "Which one of these fruits and veggies CANNOT be found in the Philippines?"
+    reply = UI::QuickReplies.build(%w[Pear PEAR], %w[Mango MANGO])
+    next_command :handle_question_2_and_ask_question_3
+  end
+
+  def handle_question_2_and_ask_question_3
+    fall_back && return
+    @user.answers[:question_2] = @message.text
+    if @user.answers[:question_1] == "Pear"
+      $points_count += 1
+      say "Good job!"
+    end
+    say "Which one of these fruits and veggies CANNOT be found in the Philippines?"
+    reply = UI::QuickReplies.build(%w[Pear PEAR], %w[Mango MANGO])
+    next_command :handle_question_2_and_ask_question_3
   end
 
 
