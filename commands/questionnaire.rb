@@ -57,6 +57,8 @@ module Questionnaire
       $points_count += 1
       say "Good job!"
     end
+    puts "Here are the aswers as of now" #log
+    puts @user.answers #log
     next_command :show_results
   end
 
