@@ -13,38 +13,18 @@ module Questionnaire
     if @message.quick_reply == 'START_QUESTIONNAIRE' || @message.text =~ /yes/i
       say "Great! What's your name?"
       say "(type 'Stop' at any point to exit)"
-      next_command :handle_name_and_ask_gender
+      next_command :handle_name_and_ask_question_1
     else
       say "No problem! Let's do it later"
       stop_thread
     end
   end
 
-  def handle_name_and_ask_gender
+  def handle_name_and_ask_question_1
     # Fallback functionality if stop word used or user input is not text
     fall_back && return
     @user.answers[:name] = @message.text
-    replies = UI::QuickReplies.build(%w[Male MALE], %w[Female FEMALE])
-    say "What's your gender?", quick_replies: replies
-    next_command :handle_gender_and_ask_age
-  end
-
-  def handle_gender_and_ask_age
-    fall_back && return
-    @user.answers[:gender] = @message.text
-    reply = UI::QuickReplies.build(["I'd rather not say", 'NO_AGE'])
-    say 'Finally, how old are you?', quick_replies: reply
-    next_command :handle_age_and_ask_question_1
-  end
-
-  def handle_age_and_ask_question_1
-    fall_back && return
-    @user.answers[:age] = if @message.quick_reply == 'NO_AGE'
-                            'hidden'
-                          else
-                            @message.text
-                          end
-    say "Let's get started with the quizz!"
+    say "#{@message.text}, I'm very happy to meet you! Let's get started with the quizz!"
     reply = UI::QuickReplies.build(%w[Buko BUKO], %w[Banana BANANA])
     say "Which one of this fruits is amazing for the immune system?", quick_replies: reply
     next_command :handle_question_1_and_ask_question_2
@@ -81,9 +61,9 @@ module Questionnaire
   def handle_question_3_and_ask_question_4
     fall_back && return
     @user.answers[:question_3] = @message.text
-    if @user.answers[:question_1] == "Pear"
+    if @user.answers[:question_3] == "Watermelon"
       $points_count += 1
-      say "Good job!"
+      say "Good job! 🍉 is full of water: 92 percent exactly. Amazing, right?"
     else
       say "Nooooo 😓"
     end
@@ -111,14 +91,13 @@ module Questionnaire
   end
 
   def show_results
-    say "OK. Here's what we now about you so far:"
     name = @user.answers.fetch(:name, 'N/A')
     gender = @user.answers.fetch(:gender, 'N/A')
     age = @user.answers.fetch(:age, 'N/A')
     text = "Name: #{name}, " \
            "gender: #{gender}, " \
            "age: #{age}, " \
-           "points: #{$points_count}"
+           "points: #{$points_count} out of 4"
     say text
     if $points_count == 4
       say "Wow, you're amazingly knowledgeable about Filipino Fruits and veggies!"

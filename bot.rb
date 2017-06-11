@@ -34,6 +34,7 @@ questionnaire_replies = UI::QuickReplies.build(%w[Yes START_QUESTIONNAIRE],
                                                %w[No STOP_QUESTIONNAIRE])
 questionnaire_welcome = 'Welcome to the Proudly Filipino questionnaire! Are you ready?'
 
+
 ####################### ROUTE MESSAGES HERE ################################
 
 Bot.on :message do |message|
