@@ -95,8 +95,6 @@ module Questionnaire
     gender = @user.answers.fetch(:gender, 'N/A')
     age = @user.answers.fetch(:age, 'N/A')
     text = "Name: #{name}, " \
-           "gender: #{gender}, " \
-           "age: #{age}, " \
            "points: #{$points_count} out of 4"
     say text
     if $points_count == 4
