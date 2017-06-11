@@ -78,14 +78,14 @@ module Questionnaire
 
   def handle_question_4_and_ask_question_5
     fall_back && return
-    @user.answers[:question_3] = @message.text
+    @user.answers[:question_4] = @message.text
     if @user.answers[:question_4] == "Tomato"
       $points_count += 1
       say "Good job!"
     else
       say "Nooooo 😓"
     end
-    reply = UI::QuickReplies.build(['An enzym called Bromelain','BROMELAIN'], ['A protein called melanin','MELANIN'])
+    reply = UI::QuickReplies.build(['An enzym: Bromelain','BROMELAIN'], ['Melanin','MELANIN'])
     sleep(0.5)
     say "Why does the Pineapple make your tongue feel like sand paper?", quick_replies: reply
     next_command :handle_question_5_and_ask_question_6
@@ -101,7 +101,7 @@ module Questionnaire
       say "Nooooo 😓"
     end
     say "Pineapple cores contain high levels of bromelain, a proteolytic enzyme that breaks down proteins. That's why pineapple can even be used as a meat tenderizer!"
-    reply = UI::QuickReplies.build(['They hang on trees','TREES'], ['They grow from the ground','GROUND'])
+    reply = UI::QuickReplies.build(['From trees','TREES'], ['From the ground','GROUND'])
     sleep(0.5)
     say "How do pineapples grow?", quick_replies: reply
     next_command :handle_question_6_and_ask_question_7
@@ -144,12 +144,12 @@ module Questionnaire
   def show_results
     name = @user.answers.fetch(:name, 'N/A')
     text = "Name: #{name}, " \
-           "points: #{$points_count} out of 4"
+           "points: #{$points_count} out of 7"
     say text
     if $points_count == 7
       say "Wow, you're amazingly knowledgeable about Filipino Fruits! You will love www.plushandplay.com for sure!"
     elsif $points_count < 7 && $points_count > 0
-      say "You're good, but can get better! Maybe you should vidit plushandplay.com"
+      say "You're good, but can get better! Maybe you should visit plushandplay.com"
     else
       say "You still have a lot to learn about fruits and veggies!"
     end
