@@ -59,8 +59,8 @@ module Questionnaire
     else
       say "Nooooo 😓"
     end
-    say "Which one of these fruits and veggies CANNOT be found in the Philippines?"
     reply = UI::QuickReplies.build(%w[Pear PEAR], %w[Mango MANGO])
+    say "Which one of these fruits and veggies CANNOT be found in the Philippines?", quick_replies: reply
     next_command :handle_question_2_and_ask_question_3
   end
 
@@ -73,8 +73,8 @@ module Questionnaire
     else
       say "Nooooo 😓"
     end
-    say "Which one of these fruits is full of water?"
     reply = UI::QuickReplies.build(%w[Watermelon WATERMELON], %w[Nut NUT])
+    say "Which one of these fruits is full of water?", quick_replies: reply
     next_command :handle_question_2_and_ask_question_3
   end
 
@@ -87,8 +87,8 @@ module Questionnaire
     else
       say "Nooooo 😓"
     end
-    say "Which one of these fruits will bring you all the vitamin A you need?"
     reply = UI::QuickReplies.build(%w[Tomato TOMATO], %w[Chili CHILI])
+    say "Which one of these fruits will bring you all the vitamin A you need?", quick_replies: reply
     next_command :handle_question_4_and_stop_questionnaire
   end
 
