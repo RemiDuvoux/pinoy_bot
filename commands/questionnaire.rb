@@ -67,7 +67,7 @@ module Questionnaire
   def handle_question_2_and_ask_question_3
     fall_back && return
     @user.answers[:question_2] = @message.text
-    if @user.answers[:question_1] == "Pear"
+    if @user.answers[:question_2] == "Pear"
       $points_count += 1
       say "Good job!"
     else
@@ -75,7 +75,7 @@ module Questionnaire
     end
     reply = UI::QuickReplies.build(%w[Watermelon WATERMELON], %w[Nut NUT])
     say "Which one of these fruits is full of water?", quick_replies: reply
-    next_command :handle_question_2_and_ask_question_3
+    next_command :handle_question_3_and_ask_question_4
   end
 
   def handle_question_3_and_ask_question_4
