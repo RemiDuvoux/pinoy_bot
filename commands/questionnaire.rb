@@ -53,9 +53,11 @@ module Questionnaire
   def handle_question_1_and_ask_question_2
     fall_back && return
     @user.answers[:question_1] = @message.text
-    if @user.answers[:question_1] == "Banana"
+    if @user.answers[:question_1] == "Buko"
       $points_count += 1
       say "Good job!"
+    else
+      say "Nooooo 😓"
     end
     say "Which one of these fruits and veggies CANNOT be found in the Philippines?"
     reply = UI::QuickReplies.build(%w[Pear PEAR], %w[Mango MANGO])
@@ -68,12 +70,39 @@ module Questionnaire
     if @user.answers[:question_1] == "Pear"
       $points_count += 1
       say "Good job!"
+    else
+      say "Nooooo 😓"
     end
-    say "Which one of these fruits and veggies CANNOT be found in the Philippines?"
-    reply = UI::QuickReplies.build(%w[Pear PEAR], %w[Mango MANGO])
+    say "Which one of these fruits is full of water?"
+    reply = UI::QuickReplies.build(%w[Watermelon WATERMELON], %w[Nut NUT])
     next_command :handle_question_2_and_ask_question_3
   end
 
+  def handle_question_3_and_ask_question_4
+    fall_back && return
+    @user.answers[:question_3] = @message.text
+    if @user.answers[:question_1] == "Pear"
+      $points_count += 1
+      say "Good job!"
+    else
+      say "Nooooo 😓"
+    end
+    say "Which one of these fruits will bring you all the vitamin A you need?"
+    reply = UI::QuickReplies.build(%w[Tomato TOMATO], %w[Chili CHILI])
+    next_command :handle_question_4_and_stop_questionnaire
+  end
+
+  def handle_question_4_and_stop_questionnaire
+    fall_back && return
+    @user.answers[:question_4] = @message.text
+    if @user.answers[:question_4] == "Tomato"
+      $points_count += 1
+      say "Good job!"
+    else
+      say "Nooooo 😓"
+    end
+    stop_questionnaire
+  end
 
   def stop_questionnaire
     stop_thread
@@ -91,7 +120,14 @@ module Questionnaire
            "age: #{age}, " \
            "points: #{$points_count}"
     say text
-    say 'Thanks for your time!'
+    if $points_count == 4
+      say "Wow, you're amazingly knowledgeable about Filipino Fruits and veggies!"
+    elsif $points_count == 3 || $points_count == 2
+      say "You're good, but can get better!"
+    else
+      say "You still have a lot to learn about fruits and veggies!"
+    end
+    say 'Thanks for your time, and talk to you again!'
     $points_count = 0
   end
 
