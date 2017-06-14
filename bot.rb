@@ -83,10 +83,10 @@ Bot.on :message do |message|
       quick_replies: questionnaire_replies
     }
 
-    bind 'where', 'am', 'I', all: true, to: :lookup_location, start_thread: {
-      message: 'Let me know your location',
-      quick_replies: LOCATION_PROMPT
-    }
+    # bind 'where', 'am', 'I', all: true, to: :lookup_location, start_thread: {
+    #   message: 'Let me know your location',
+    #   quick_replies: LOCATION_PROMPT
+    # }
 
     # Falback action if none of the commands matched the input,
     # NB: Should always come last. Takes a block.
@@ -124,10 +124,10 @@ Bot.on :postback do |postback|
     # No custom parameter passed, can use simplified syntax
     bind 'HORIZONTAL_IMAGES', to: :show_carousel
 
-    bind 'LOCATION', to: :lookup_location, start_thread: {
-      message: 'Let me know your location',
-      quick_replies: LOCATION_PROMPT
-    }
+    # bind 'LOCATION', to: :lookup_location, start_thread: {
+    #   message: 'Let me know your location',
+    #   quick_replies: LOCATION_PROMPT
+    # }
 
     bind 'QUESTIONNAIRE', to: :start_questionnaire, start_thread: {
       message: questionnaire_welcome,
