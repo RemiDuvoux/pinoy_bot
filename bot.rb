@@ -28,11 +28,11 @@ HINTS = UI::QuickReplies.build(['Who are you?', 'WHO_AM_I'],
 # Build a quick reply that prompts location from user
 # LOCATION_PROMPT = UI::QuickReplies.location
 
-# Define vartiables you want to use for both messages and postbacks
+# Define variables you want to use for both messages and postbacks
 # outside both Bot.on method calls.
-# questionnaire_replies = UI::QuickReplies.build(%w[Yes START_QUESTIONNAIRE],
-#                                                %w[No STOP_QUESTIONNAIRE])
-# questionnaire_welcome = 'Welcome to the Proudly Filipino questionnaire! Are you ready?'
+questionnaire_replies = UI::QuickReplies.build(%w[Yes START_QUESTIONNAIRE],
+                                               %w[No STOP_QUESTIONNAIRE])
+questionnaire_welcome = 'Welcome to the Proudly Filipino questionnaire! Are you ready?'
 
 
 ####################### ROUTE MESSAGES HERE ################################
