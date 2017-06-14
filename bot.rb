@@ -22,17 +22,18 @@ Rubotnik::PersistentMenu.enable
 # NOTE: QuickReplies.build should be called with a splat operator
 # if a set of quick replies is an array of arrays.
 # e.g. UI::QuickReplies.build(*replies)
-HINTS = UI::QuickReplies.build(['Where am I?', 'LOCATION'],
-                               ['Take questionnaire', 'QUESTIONNAIRE'])
+HINTS = UI::QuickReplies.build(['Learn more about me', 'ABOUT_ME'],
+                               ['Play the pinoy fruits trivia!', 'START_QUESTIONNAIRE'])
 
 # Build a quick reply that prompts location from user
-LOCATION_PROMPT = UI::QuickReplies.location
+# LOCATION_PROMPT = UI::QuickReplies.location
 
 # Define vartiables you want to use for both messages and postbacks
 # outside both Bot.on method calls.
 questionnaire_replies = UI::QuickReplies.build(%w[Yes START_QUESTIONNAIRE],
                                                %w[No STOP_QUESTIONNAIRE])
 questionnaire_welcome = 'Welcome to the Proudly Filipino questionnaire! Are you ready?'
+say('Start the questionnaire?'), replies: questionnaire_replies
 
 
 ####################### ROUTE MESSAGES HERE ################################
@@ -64,9 +65,6 @@ Bot.on :message do |message|
 
     # Use with block if you want to provide response behaviour
     # directly without looking for an existing command inside Commands.
-    bind 'Who is Duterte?' do
-      say "The President of the Philippines!"
-    end
 
     bind 'hi', 'hello', 'yo', 'hey' do
       say "Nice to meet you! Here's what I can do", quick_replies: HINTS
@@ -123,11 +121,6 @@ Bot.on :postback do |postback|
 
     # No custom parameter passed, can use simplified syntax
     bind 'HORIZONTAL_IMAGES', to: :show_carousel
-
-    bind 'LOCATION', to: :lookup_location, start_thread: {
-      message: 'Let me know your location',
-      quick_replies: LOCATION_PROMPT
-    }
 
     bind 'QUESTIONNAIRE', to: :start_questionnaire, start_thread: {
       message: questionnaire_welcome,
