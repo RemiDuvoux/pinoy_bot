@@ -23,7 +23,7 @@ Rubotnik::PersistentMenu.enable
 # if a set of quick replies is an array of arrays.
 # e.g. UI::QuickReplies.build(*replies)
 HINTS = UI::QuickReplies.build(['Who are you?', 'WHO_AM_I'],
-                               ['Take questionnaire', 'START_QUESTIONNAIRE'])
+                               ['Take questionnaire', 'QUESTIONNAIRE'])
 
 # Build a quick reply that prompts location from user
 # LOCATION_PROMPT = UI::QuickReplies.location

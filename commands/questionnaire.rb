@@ -10,7 +10,7 @@ module Questionnaire
 
   def start_questionnaire
     # get_user_info
-    if @message.quick_reply == 'START_QUESTIONNAIRE' || @message.text =~ /yes/i
+    if @message.quick_reply == 'QUESTIONNAIRE' || @message.text =~ /yes/i
       say "Great! What's your name?"
       say "(type 'Stop' at any point to exit)"
       next_command :handle_name_and_ask_question_1
