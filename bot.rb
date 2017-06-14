@@ -33,7 +33,7 @@ HINTS = UI::QuickReplies.build(['Learn more about me', 'ABOUT_ME'],
 questionnaire_replies = UI::QuickReplies.build(%w[Yes START_QUESTIONNAIRE],
                                                %w[No STOP_QUESTIONNAIRE])
 questionnaire_welcome = 'Welcome to the Proudly Filipino questionnaire! Are you ready?'
-say('Start the questionnaire?'), replies: questionnaire_replies
+say('Start the questionnaire?'), , quick_replies: questionnaire_replies
 
 
 ####################### ROUTE MESSAGES HERE ################################
